@@ -18,6 +18,9 @@ const staticRoute = require("./routes/staticRouter");
 const app = express();
 const PORT = 8001;
 
+// Trust the reverse proxy headers (e.g. on Render) to correctly recognize secure HTTPS connections/cookies
+app.set("trust proxy", 1);
+
 connectToMongoDB(process.env.MONGODB ?? "mongodb://localhost:27017/short-url").then(() =>
   console.log("Mongodb connected")
 );
