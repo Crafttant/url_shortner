@@ -2,12 +2,21 @@ const express = require("express");
 const URL = require("../models/url");
 const Visit = require("../models/visit");
 
-const { requireAuth, getAuth } = require("@clerk/express");
+const { getAuth } = require("@clerk/express");
 
 const router = express.Router();
 
-router.get("/", requireAuth(), async (req, res) => {
-  const { userId } = getAuth(req);
+router.get("/", async (req, res) => {
+  const auth = getAuth(req);
+  if (!auth.userId) {
+    const isJson = req.headers.accept && req.headers.accept.includes("application/json");
+    if (isJson) {
+      return res.status(401).json({ error: "Unauthorized: Missing or invalid token." });
+    }
+    return res.status(200).json({ status: "healthy", message: "QuickLink API is running." });
+  }
+
+  const { userId } = auth;
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const search = req.query.search || "";

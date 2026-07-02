@@ -1,5 +1,5 @@
 const express = require("express");
-const { requireAuth } = require("@clerk/express");
+const { apiRequireAuth } = require("../middlewares/auth");
 const { validateCreateURL, validateUpdateURL } = require("../middlewares/validate");
 const {
   handleGenerateNewShortURL,
@@ -13,18 +13,18 @@ const {
 
 const router = express.Router();
 
-router.post("/", requireAuth(), validateCreateURL, handleGenerateNewShortURL);
+router.post("/", apiRequireAuth, validateCreateURL, handleGenerateNewShortURL);
 
-router.get("/analytics/summary", requireAuth(), handleGetGlobalAnalytics);
+router.get("/analytics/summary", apiRequireAuth, handleGetGlobalAnalytics);
 
-router.get("/analytics/:shortId", requireAuth(), handleGetAnalytics);
+router.get("/analytics/:shortId", apiRequireAuth, handleGetAnalytics);
 
-router.patch("/:shortId/favorite", requireAuth(), handleToggleFavorite);
+router.patch("/:shortId/favorite", apiRequireAuth, handleToggleFavorite);
 
-router.put("/:shortId", requireAuth(), validateUpdateURL, handleUpdateURL);
+router.put("/:shortId", apiRequireAuth, validateUpdateURL, handleUpdateURL);
 
-router.delete("/:shortId", requireAuth(), handleDeleteURL);
+router.delete("/:shortId", apiRequireAuth, handleDeleteURL);
 
-router.patch("/:shortId/archive", requireAuth(), handleToggleArchive);
+router.patch("/:shortId/archive", apiRequireAuth, handleToggleArchive);
 
 module.exports = router;
