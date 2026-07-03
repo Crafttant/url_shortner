@@ -1,3 +1,10 @@
+const sanitizeUrl = (url) => (url ? url.trim().toLowerCase().replace(/\/$/, "") : "");
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  sanitizeUrl(process.env.FRONTEND_URL)
+].filter(Boolean);
+
 // Centralized Error Handling Middleware for production status codes and sanitization
 function errorHandler(err, req, res, next) {
   console.error("Centralized Error Catch:", {
@@ -6,6 +13,12 @@ function errorHandler(err, req, res, next) {
     path: req.originalUrl,
     method: req.method,
   });
+
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(sanitizeUrl(origin))) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
 
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

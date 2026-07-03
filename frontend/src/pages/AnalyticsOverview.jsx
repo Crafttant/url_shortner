@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import API from "../api/axios";
 import { useTheme } from "../context/ThemeContext";
@@ -74,6 +75,7 @@ const RenderProgressBarList = ({ data, total, barColor = "bg-indigo-500" }) => {
 export default function AnalyticsOverview() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const { isLoaded, userId } = useAuth();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["globalAnalytics"],
@@ -82,6 +84,7 @@ export default function AnalyticsOverview() {
       return response.data;
     },
     refetchInterval: 3000, // Background polling for auto synchronization
+    enabled: isLoaded && !!userId,
   });
 
   if (isLoading) {

@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "@clerk/clerk-react";
 import API from "../api/axios";
 import { useTheme } from "../context/ThemeContext";
 import {
@@ -45,6 +46,7 @@ export default function Analytics() {
   const { shortId } = useParams();
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const { isLoaded, userId } = useAuth();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["analytics", shortId],
@@ -53,6 +55,7 @@ export default function Analytics() {
       return response.data;
     },
     refetchInterval: 3000, // Background polling for auto synchronization
+    enabled: isLoaded && !!userId && !!shortId,
   });
 
   const getShortUrl = () => {

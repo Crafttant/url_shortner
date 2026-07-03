@@ -52,14 +52,16 @@ app.use(helmet({ crossOriginResourcePolicy: false }));
 // Request Logging
 app.use(morgan("dev"));
 
+const sanitizeUrl = (url) => (url ? url.trim().toLowerCase().replace(/\/$/, "") : "");
+
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, "") : ""
+  sanitizeUrl(process.env.FRONTEND_URL)
 ].filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
+    if (!origin || allowedOrigins.includes(sanitizeUrl(origin))) {
       callback(null, true);
     } else {
       callback(null, false);
