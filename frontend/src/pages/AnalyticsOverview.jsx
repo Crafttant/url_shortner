@@ -83,7 +83,7 @@ export default function AnalyticsOverview() {
       const response = await API.get("/url/analytics/summary");
       return response.data;
     },
-    refetchInterval: 3000, // Background polling for auto synchronization
+    refetchInterval: 60000, // Background polling for auto synchronization
     enabled: isLoaded && !!userId,
   });
 

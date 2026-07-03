@@ -54,7 +54,7 @@ export default function Analytics() {
       const response = await API.get(`/url/analytics/${shortId}`);
       return response.data;
     },
-    refetchInterval: 3000, // Background polling for auto synchronization
+    refetchInterval: 60000, // Background polling for auto synchronization
     enabled: isLoaded && !!userId && !!shortId,
   });
 

@@ -20,7 +20,7 @@ export function useURLs({ page, limit, search, filter, sort }) {
       return response.data;
     },
     placeholderData: (previousData) => previousData,
-    refetchInterval: 3000,
+    refetchInterval: 60000,
     enabled: isLoaded && !!userId,
   });
 }
@@ -36,7 +36,7 @@ export function useAllURLs() {
       });
       return response.data?.urls || [];
     },
-    refetchInterval: 3000,
+    refetchInterval: 60000,
     enabled: isLoaded && !!userId,
   });
 }
