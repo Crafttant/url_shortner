@@ -15,9 +15,13 @@ function errorHandler(err, req, res, next) {
   });
 
   const origin = req.headers.origin;
-  if (origin && allowedOrigins.includes(sanitizeUrl(origin))) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+  if (origin) {
+    const cleanOrigin = sanitizeUrl(origin);
+    const isVercelPreview = /^https:\/\/url-shortner-.*\.vercel\.app$/.test(cleanOrigin);
+    if (allowedOrigins.includes(cleanOrigin) || isVercelPreview) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+    }
   }
 
   const statusCode = err.statusCode || 500;

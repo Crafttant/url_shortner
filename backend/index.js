@@ -61,7 +61,12 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(sanitizeUrl(origin))) {
+    if (!origin) {
+      return callback(null, true);
+    }
+    const cleanOrigin = sanitizeUrl(origin);
+    const isVercelPreview = /^https:\/\/url-shortner-.*\.vercel\.app$/.test(cleanOrigin);
+    if (allowedOrigins.includes(cleanOrigin) || isVercelPreview) {
       callback(null, true);
     } else {
       callback(null, false);
