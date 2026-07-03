@@ -59,7 +59,7 @@ export default function Analytics() {
   });
 
   const getShortUrl = () => {
-    const apiBase = import.meta.env.VITE_API_URL;
+    const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.trim().replace(/\/$/, "") : "";
     return `${apiBase}/url/${shortId}`;
   };
 

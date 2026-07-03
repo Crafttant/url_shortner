@@ -18,7 +18,7 @@ export default function URLTable({
   const [selectedQRId, setSelectedQRId] = useState(null);
 
   const getShortUrl = (id) => {
-    const apiBase = import.meta.env.VITE_API_URL;
+    const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.trim().replace(/\/$/, "") : "";
     return `${apiBase}/url/${id}`;
   };
 
