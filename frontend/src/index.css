@@ -127,3 +127,80 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(99, 102, 241, 0.3);
 }
+
+/* Clerk Authentication Styling Enhancements */
+.dark html body .cl-socialButtonsBlockButtonLogo__github img,
+.dark html body .cl-socialButtonsBlockButtonLogo__github svg,
+.dark html body img[alt*="GitHub"],
+.dark html body img[src*="github"] {
+  filter: invert(1) brightness(2) !important;
+}
+
+/* Ensure social buttons are positioned side-by-side on desktop and stacked on mobile */
+html body .cl-socialButtons {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  html body .cl-socialButtons {
+    flex-direction: row !important;
+  }
+}
+
+html body .cl-socialButtonsBlockButton {
+  width: 100% !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@media (min-width: 768px) {
+  html body .cl-socialButtonsBlockButton {
+    width: calc(50% - 6px) !important;
+  }
+}
+
+/* Glassmorphism theme integration for social login buttons */
+html body .cl-socialButtonsBlockButton {
+  background-color: #f8fafc !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+html body .cl-socialButtonsBlockButton:hover {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  transform: scale(1.02) !important;
+}
+
+html body .cl-socialButtonsBlockButtonText {
+  color: #0f172a !important;
+  font-family: inherit !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 11px !important;
+}
+
+/* Dark mode styles */
+.dark html body .cl-socialButtonsBlockButton {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark html body .cl-socialButtonsBlockButton:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  transform: scale(1.02) !important;
+}
+
+.dark html body .cl-socialButtonsBlockButtonText {
+  color: #f1f5f9 !important;
+}

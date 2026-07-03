@@ -31,14 +31,15 @@ export default function Signup() {
               card: "bg-transparent border-0 shadow-none",
               headerTitle: isDark ? "text-slate-100 font-extrabold tracking-tight" : "text-slate-900 font-extrabold tracking-tight",
               headerSubtitle: isDark ? "text-slate-400 text-sm mt-2" : "text-slate-500 text-sm mt-2",
+              socialButtons: "flex flex-col md:flex-row gap-3 w-full",
               socialButtonsBlockButton: isDark 
-                ? "border border-slate-850 bg-slate-950/20 hover:bg-slate-900 text-slate-300 font-medium"
-                : "border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium",
+                ? "w-full md:w-[calc(50%-6px)] h-11 flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/12 hover:border-indigo-500/50 hover:scale-[1.02] text-slate-200 transition-all duration-300 shadow-md backdrop-blur-md cursor-pointer"
+                : "w-full md:w-[calc(50%-6px)] h-11 flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-indigo-500/30 hover:scale-[1.02] text-slate-700 transition-all duration-300 shadow-sm cursor-pointer",
               socialButtonsBlockButton__github: isDark 
-                ? "border border-slate-700 bg-slate-800 text-white font-medium hover:bg-slate-700 shadow-inner" 
-                : "border border-slate-300 bg-slate-900 text-white font-medium hover:bg-slate-800 shadow-sm",
-              socialButtonsBlockButtonText: isDark ? "text-slate-300" : "text-slate-700",
-              socialButtonsBlockButtonText__github: "text-white",
+                ? "border border-white/10 bg-white/5 hover:bg-white/12 hover:border-indigo-500/50 hover:scale-[1.02] text-slate-200" 
+                : "border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-indigo-500/30 hover:scale-[1.02] text-slate-700",
+              socialButtonsBlockButtonText: "text-[11px] font-bold uppercase tracking-wider",
+              socialButtonsBlockButtonText__github: isDark ? "text-slate-200" : "text-slate-700",
               dividerLine: isDark ? "bg-slate-800" : "bg-slate-200",
               dividerText: isDark ? "text-slate-500" : "text-slate-400",
               formFieldLabel: isDark ? "text-slate-300 font-semibold uppercase tracking-wider text-[10px]" : "text-slate-600 font-semibold uppercase tracking-wider text-[10px]",

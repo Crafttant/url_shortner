@@ -1,4 +1,25 @@
 require("dotenv").config({ path: require("path").join(__dirname, ".env") });
+
+const requiredEnvVars = [
+  "MONGODB",
+  "CLERK_SECRET_KEY",
+  "CLERK_PUBLISHABLE_KEY",
+  "FRONTEND_URL"
+];
+
+const missingEnvVars = requiredEnvVars.filter((key) => !process.env[key]);
+
+if (missingEnvVars.length > 0) {
+  console.error("====================================================");
+  console.error("CRITICAL CONFIGURATION ERROR: Missing environment variables:");
+  missingEnvVars.forEach((varName) => {
+    console.error(` - ${varName}`);
+  });
+  console.error("Please configure these in your .env file or hosting environment.");
+  console.error("====================================================");
+  process.exit(1);
+}
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -16,7 +37,7 @@ const urlRoute = require("./routes/url");
 const staticRoute = require("./routes/staticRouter");
 
 const app = express();
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 
 // Trust the reverse proxy headers (e.g. on Render) to correctly recognize secure HTTPS connections/cookies
 app.set("trust proxy", 1);
@@ -38,7 +59,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -186,7 +207,7 @@ app.get("/url/:shortId", async (req, res, next) => {
             <div class="icon">⏰</div>
             <h1>Link Has Expired</h1>
             <p>The shortened URL you are trying to visit has reached its scheduled expiration date and is no longer active. If you are the owner, you can extend its duration from your dashboard.</p>
-            <a href="http://localhost:5173" class="btn">Return to Dashboard</a>
+            <a href="${process.env.FRONTEND_URL}" class="btn">Return to Dashboard</a>
           </div>
         </body>
         </html>

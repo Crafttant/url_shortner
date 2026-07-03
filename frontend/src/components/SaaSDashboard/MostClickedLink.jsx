@@ -7,7 +7,7 @@ export default function MostClickedLink({ urls, loading }) {
   }, [urls]);
 
   const getShortUrl = (id) => {
-    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8001";
+    const apiBase = import.meta.env.VITE_API_URL;
     return `${apiBase}/url/${id}`;
   };
 

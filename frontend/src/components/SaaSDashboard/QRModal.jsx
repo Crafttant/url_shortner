@@ -7,7 +7,7 @@ export default function QRModal({ isOpen, onClose, shortId }) {
   const [copySuccess, setCopySuccess] = useState(false);
 
   const getShortUrl = () => {
-    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8001";
+    const apiBase = import.meta.env.VITE_API_URL;
     return `${apiBase}/url/${shortId}`;
   };
 

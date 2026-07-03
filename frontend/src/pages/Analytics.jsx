@@ -56,7 +56,7 @@ export default function Analytics() {
   });
 
   const getShortUrl = () => {
-    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8001";
+    const apiBase = import.meta.env.VITE_API_URL;
     return `${apiBase}/url/${shortId}`;
   };
 

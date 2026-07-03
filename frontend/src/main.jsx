@@ -8,9 +8,13 @@ import { ThemeProvider } from './context/ThemeContext'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const API_URL = import.meta.env.VITE_API_URL
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key. Please configure VITE_CLERK_PUBLISHABLE_KEY in your env settings.")
+  throw new Error("CRITICAL CONFIGURATION ERROR: Missing VITE_CLERK_PUBLISHABLE_KEY environment variable. Please configure it in your env settings.")
+}
+if (!API_URL) {
+  throw new Error("CRITICAL CONFIGURATION ERROR: Missing VITE_API_URL environment variable. Please configure it in your env settings.")
 }
 
 const queryClient = new QueryClient({
